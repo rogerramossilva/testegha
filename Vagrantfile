@@ -49,6 +49,12 @@ Vagrant.configure("2") do |config|
                 vb.cpus = 2
         end
         puppet.vm.provision "shell", inline: "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
+	puppet.vm.provision "puppet" do |puppet|
+   		puppet.manifests_path = "manifests"
+    		puppet.manifest_file = "site.pp"
+	end
+
+	
   end
 
 end
