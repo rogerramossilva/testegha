@@ -1,0 +1,9 @@
+FROM centos:7
+MAINTAINER Rogerio Martinho
+ENV PORT=80
+RUN yum install httpd php mod_php php-mysql -y
+COPY ./web/ /var/www/html
+EXPOSE $PORT
+WORKDIR /etc/httpd
+CMD ["-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/httpd"]
