@@ -1,7 +1,7 @@
 <?php
 require('header.php');
 
-# php5 
+# php5 teste
 #mysql_connect('192.168.15.20', 'root', 'AllSafe0!'); // Conecta com o banco de dados
 #mysql_select_db('backup'); // Seleciona o banco certo
 #$dados = mysql_query('SELECT * FROM log'); // Pega todos os registros da tabela log
