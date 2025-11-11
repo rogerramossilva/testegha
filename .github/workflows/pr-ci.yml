@@ -1,12 +1,15 @@
 name: PR CI
 on: pull_request
 jobs:
-test-build:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v4
-- uses: actions/setup-python@v4
-with:
-python-version: '3.11'
-- run: pip install -r requirements.txt
-- run: docker build -t test-image .
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - run: pip install -r requirements.txt
+
+      - run: docker build -t test-image .
