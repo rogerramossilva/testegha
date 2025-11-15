@@ -32,6 +32,7 @@ pipeline {
         stage('Teste Aplicação') {
             steps {
                 // Testes automatizados da aplicação
+		sh 'docker rm -f $(docker ps -a -q)'
                 sh 'docker-compose -f docker-compose.yml up -d'
 
                 // Realize os testes nos serviços em execução
