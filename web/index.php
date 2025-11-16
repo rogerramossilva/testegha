@@ -4,7 +4,10 @@ require('header.php');
 	<div id="grid_content">
 		<div class="main_content">
 			<?php require('menu.php'); ?>
+<<<<<<< HEAD
 			<?php echo getenv('CONTAINER_NAME'); ?>
+=======
+>>>>>>> develop
 			<h1>Controle de Pedidos</h1>
 			<table cellpadding="0" cellspacing="0" border="0" class="tabela">
 				<thead>

@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 version: '3'
+=======
+>>>>>>> develop
 services:
   nginx:
     build:
        dockerfile: ./Dockerfilenginx
        context: .
+<<<<<<< HEAD
     image: rogerramossilva/nginx
+=======
+    image: rogerramossilva/nginx:1.0
+>>>>>>> develop
     container_name: nginx
     ports:
       - "80:80"

@@ -2,9 +2,16 @@
 - hosts: all
   become: yes
   tasks:
+<<<<<<< HEAD
     - name: Criação Usuário suporte
       ansible.builtin.user:
         name: suporte
         comment: Suporte
         uid: 5000
         group: root
+=======
+    - name: Instalação do Git
+      ansible.builtin.apt:
+        name: git
+        state: present
+>>>>>>> develop
