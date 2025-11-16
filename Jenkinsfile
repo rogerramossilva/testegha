@@ -21,13 +21,13 @@ pipeline {
             steps {
                 sh 'echo "Checking out repository..."'
                 checkout scm
-#                slackSend channel: '#ci', message: "Checkout iniciado", tokenCredentialId: 'slack-token'
+                slackSend channel: '#ci', message: "Checkout iniciado", tokenCredentialId: 'slack-token'
             }
         }
 
         stage('Build Images') {
             steps {
-#                slackSend channel: '#ci', message: "Build das imagens iniciado", tokenCredentialId: 'slack-token'
+                slackSend channel: '#ci', message: "Build das imagens iniciado", tokenCredentialId: 'slack-token'
 
                 script {
                     docker.withRegistry("https://${REGISTRY}", 'dockerhub') {
@@ -41,7 +41,7 @@ pipeline {
 
         stage('Security Scan (Trivy)') {
             steps {
- #               slackSend channel: '#ci', message: "Rodando Trivy Scan...", tokenCredentialId: 'slack-token'
+                slackSend channel: '#ci', message: "Rodando Trivy Scan...", tokenCredentialId: 'slack-token'
 
                 sh """
                     trivy image --severity HIGH,CRITICAL --exit-code 1 ${IMAGE_WEB}
@@ -53,7 +53,7 @@ pipeline {
 
         stage('Test in Containers') {
             steps {
-#                slackSend channel: '#ci', message: "Subindo containers para testes...", tokenCredentialId: 'slack-token'
+                slackSend channel: '#ci', message: "Subindo containers para testes...", tokenCredentialId: 'slack-token'
 
                 sh """
                     docker rm -f web db nginx || true
@@ -70,7 +70,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-#                slackSend channel: '#ci', message: "Deploy em produção iniciado...", tokenCredentialId: 'slack-token'
+                slackSend channel: '#ci', message: "Deploy em produção iniciado...", tokenCredentialId: 'slack-token'
 
                 sshagent(credentials: ['ssh-prod']) {
                     sh """
@@ -87,10 +87,10 @@ pipeline {
 
     post {
         success {
-#            slackSend channel: '#ci', message: "Pipeline finalizado com sucesso! Build #${BUILD_NUMBER}", tokenCredentialId: 'slack-token'
+            slackSend channel: '#ci', message: "Pipeline finalizado com sucesso! Build #${BUILD_NUMBER}", tokenCredentialId: 'slack-token'
         }
         failure {
-#            slackSend channel: '#ci', message: "Pipeline falhou! Verifique o console. Build #${BUILD_NUMBER}", tokenCredentialId: 'slack-token'
+            slackSend channel: '#ci', message: "Pipeline falhou! Verifique o console. Build #${BUILD_NUMBER}", tokenCredentialId: 'slack-token'
         }
     }
 }
