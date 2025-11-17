@@ -38,19 +38,28 @@ pipeline {
                 }
             }
         }
+	
+	stage('Security Scan (Trivy)') {
+   		 steps {
+        		slackSend channel: '#ci', message: "Rodando Trivy Scan...", tokenCredentialId: 'slack-token'
+		
+        		sh """
+            			trivy image ${IMAGE_WEB}   --severity HIGH,CRITICAL --exit-code 0 --format json --output trivy-web.json
+            			trivy image ${IMAGE_DB}    --severity HIGH,CRITICAL --exit-code 0 --format json --output trivy-db.json
+            			trivy image ${IMAGE_NGINX} --severity HIGH,CRITICAL --exit-code 0 --format json --output trivy-nginx.json
+        		"""
+    		}
+	}
 
-        stage('Security Scan (Trivy)') {
-            steps {
-                slackSend channel: '#ci', message: "Rodando Trivy Scan...", tokenCredentialId: 'slack-token'
+	post {
+    		always {
+        		archiveArtifacts artifacts: 'trivy-*.json', fingerprint: true
+        		slackSend channel: '#ci', message: "Trivy scan concluído. Relatórios disponíveis nos artefatos.", tokenCredentialId: 'slack-token'
+    		}
+	}
 
-                sh """
-                    trivy image --severity HIGH,CRITICAL --exit-code 0 ${IMAGE_WEB}
-                    trivy image --severity HIGH,CRITICAL --exit-code 0 ${IMAGE_DB}
-                    trivy image --severity HIGH,CRITICAL --exit-code 0 ${IMAGE_NGINX}
-                """
-            }
-        }
-
+		
+		
         stage('Test in Containers') {
             steps {
                 slackSend channel: '#ci', message: "Subindo containers para testes...", tokenCredentialId: 'slack-token'
