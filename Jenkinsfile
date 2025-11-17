@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TAG         = "${env.BUILD_NUMBER}"
+        TAG         = "latest"
         REGISTRY    = "${env.REGISTRY_URL}"
 
         IMAGE_WEB   = "${env.IMAGE_WEB}:${TAG}"
