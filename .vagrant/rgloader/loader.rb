@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: BUSL-1.1
+
+>>>>>>> develop
 # This file loads the proper rgloader/loader.rb file that comes packaged
 # with Vagrant so that encoded files can properly run with Vagrant.
 
