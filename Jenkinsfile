@@ -79,14 +79,10 @@ pipeline {
             steps {
                 slackSend channel: '#ci', message: "Deploy em produção iniciado...", tokenCredentialId: 'slack-token'
 
-                sshagent(credentials: ['ssh-prod']) {
-                    sh """
-                        ssh -o StrictHostKeyChecking=no ${PROD_HOST} '
-                            cd ${PROD_PATH} &&
-                            docker compose pull &&
-                            docker compose up -d
-                        '
-                    """
+                sh """
+                    docker compose pull &&
+                    docker compose up -d
+                """
                 }
             }
         }
