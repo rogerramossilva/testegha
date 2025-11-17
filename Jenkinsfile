@@ -49,7 +49,6 @@ pipeline {
                     trivy image ${IMAGE_NGINX} --severity HIGH,CRITICAL --exit-code 0 --format json --output trivy-nginx.json
                 """
             }
-
             post {
                 always {
                     archiveArtifacts artifacts: 'trivy-*.json', fingerprint: true
@@ -66,7 +65,6 @@ pipeline {
                     docker rm -f web db nginx || true
                     docker compose -f ${COMPOSE_FILE} up -d
 
-                    # Teste básico do serviço web
                     sleep 5
                     curl -I http://localhost || exit 1
 
@@ -80,12 +78,13 @@ pipeline {
                 slackSend channel: '#ci', message: "Deploy em produção iniciado...", tokenCredentialId: 'slack-token'
 
                 sh """
-                    docker compose pull &&
+                    cd ${PROD_PATH}
+                    docker compose pull
                     docker compose up -d
                 """
-                
             }
-	    }
+        }
+    }
 
     post {
         success {
