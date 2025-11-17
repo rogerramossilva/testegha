@@ -11,8 +11,6 @@ pipeline {
 
         COMPOSE_FILE = "${env.COMPOSE_FILE}"
 
-        PROD_HOST = "${env.PROD_HOST}"
-        PROD_PATH = "${env.PROD_PATH}"
     }
 
     stages {
@@ -78,7 +76,6 @@ pipeline {
                 slackSend channel: '#ci', message: "Deploy em produção iniciado...", tokenCredentialId: 'slack-token'
 
                 sh """
-                    cd ${PROD_PATH}
                     docker compose pull
                     docker compose up -d
                 """
