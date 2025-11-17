@@ -3,7 +3,7 @@ services:
     build:
        dockerfile: ./Dockerfilenginx
        context: .
-    image: rogerramossilva/nginx:1.0
+    image: rogerramossilva/nginx
     container_name: nginx
     ports:
       - "80:80"
