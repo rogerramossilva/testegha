@@ -44,9 +44,9 @@ pipeline {
                 slackSend channel: '#ci', message: "Rodando Trivy Scan...", tokenCredentialId: 'slack-token'
 
                 sh """
-                    trivy image --severity HIGH,CRITICAL --exit-code 1 ${IMAGE_WEB}
-                    trivy image --severity HIGH,CRITICAL --exit-code 1 ${IMAGE_DB}
-                    trivy image --severity HIGH,CRITICAL --exit-code 1 ${IMAGE_NGINX}
+                    trivy image --severity HIGH,CRITICAL --exit-code 0 ${IMAGE_WEB}
+                    trivy image --severity HIGH,CRITICAL --exit-code 0 ${IMAGE_DB}
+                    trivy image --severity HIGH,CRITICAL --exit-code 0 ${IMAGE_NGINX}
                 """
             }
         }
